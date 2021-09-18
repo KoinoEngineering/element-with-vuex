@@ -9,7 +9,8 @@
     "generate": "nuxt generate",
     "lint:js": "eslint --ext \".js,.vue\" --ignore-path .gitignore .",
     "lint:style": "stylelint \"**/*.{vue,css}\" --ignore-path .gitignore",
-    "lint": "npm run lint:js && npm run lint:style"
+    "lint": "npm run lint:js && npm run lint:style",
+    "prepare": "husky install"
   },
   "dependencies": {
     "core-js": "^3.15.1",
@@ -26,7 +27,24 @@
     "eslint": "^7.29.0",
     "eslint-plugin-nuxt": "^2.0.0",
     "eslint-plugin-vue": "^7.12.1",
+    "husky": "^7.0.2",
+    "lint-staged": "^11.1.2",
     "stylelint": "^13.13.1",
     "stylelint-config-standard": "^22.0.0"
+  },
+  "lint-staged": {
+    "*.{js,ts}": [
+      "npx prettier --write",
+      "eslint --ext .js,.ts --ignore-path .gitignore --fix"
+    ],
+    "*.scss": [
+      "npx prettier --write",
+      "stylelint --fix"
+    ],
+    "*.vue": [
+      "npx prettier --write",
+      "eslint --ext .vue --ignore-path .gitignore --fix",
+      "stylelint --fix"
+    ]
   }
 }
