@@ -25,5 +25,7 @@ module.exports = {
             },
         ],
         semi: ["error", "always"],
+        "vue/html-indent": ["error", 4],
+        "require-await": "off",
     },
 };
