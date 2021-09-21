@@ -88,7 +88,6 @@ const options = {
     },
     updated () {
         console.log("updated", this.user);
-        this.form.user = this.user;
     },
     beforeDestroy () {
         console.log("beforeDestroy", this.user);
