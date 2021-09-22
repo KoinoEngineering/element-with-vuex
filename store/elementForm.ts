@@ -1,35 +1,41 @@
 import { ActionTree, GetterTree, MutationTree } from "vuex/types";
 
 const namespaced = true;
-
-interface ElementFormState {
+interface Form {
     user: string;
     region: string;
+}
+interface ElementFormState {
+    form: Form;
 }
 
 function initialState (): ElementFormState {
     return {
-        user: "default",
-        region: "",
+        form: {
+            user: "default",
+            region: "",
+        },
     };
 }
 
 const state = () => initialState();
 
 const getters: GetterTree<ElementFormState, ElementFormState> = {
-    user: state => state.user,
-    region: state => state.region,
+    state: state => state.form,
 };
 
 const mutations: MutationTree<ElementFormState> = {
-    updateUser: (state, user) => {
-        state.user = user;
+    updateState: (state, data: Partial<Form>) => {
+        state.form = {
+            ...state.form,
+            ...data,
+        };
     },
 };
 
 const actions: ActionTree<ElementFormState, ElementFormState> = {
-    updateUser: ({ commit }, user) => {
-        commit("updateUser", user);
+    updateState: ({ commit }, data: Partial<Form>) => {
+        commit("updateState", data);
     },
 };
 

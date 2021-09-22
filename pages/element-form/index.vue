@@ -10,10 +10,10 @@
                 prop="user"
                 label="Approved by"
             >
-                <el-input :value="form.user" placeholder="Approved by" @input="updateUser($event)" />
+                <el-input :value="form.user" placeholder="Approved by" @input="updateState({ user: $event })" />
             </el-form-item>
             <el-form-item label="Activity zone">
-                <el-select v-model="form.region" placeholder="Activity zone">
+                <el-select :value="form.region" placeholder="Activity zone" @change="updateState({ region: $event })">
                     <el-option label="Zone one" value="shanghai" />
                     <el-option label="Zone two" value="beijing" />
                 </el-select>
@@ -32,68 +32,82 @@ import { mapActions, mapGetters } from "vuex";
 
 const options = {
     data () {
-        console.log("data", this.user);
+        // eslint-disable-next-line no-console
+        console.log("data", this.form);
         return {
             form: {
-                user: this.user,
-                region: this.region,
+                user: "",
+                region: "",
             },
         };
     },
     methods: {
         ...mapActions({
-            updateUser: "elementForm/updateUser",
+            updateState: "elementForm/updateState",
         }),
         onSubmit () {
+            // eslint-disable-next-line no-console
             console.log("submit!");
         },
     },
     computed: {
         ...mapGetters({
-            user: "elementForm/user",
-            region: "elementForm/region",
+            state: "elementForm/state",
         }),
     },
     watch: {
-        user () {
-            this.form.user = this.user;
+        state () {
+            // eslint-disable-next-line no-console
+            console.log("hooking watch state");
+            Object.assign(this.form, this.state);
         },
     },
     validate () {
-        console.log("validate", this.user);
+        // eslint-disable-next-line no-console
+        console.log("validate", this.form);
         return true;
     },
     middleware: "authenticated",
     fetch () {
-        console.log("fetch", this.user);
+        // eslint-disable-next-line no-console
+        console.log("fetch", this.form);
     },
     async asyncData () {
+        // eslint-disable-next-line no-console
         console.log("asyncData");
     },
     beforeCreate () {
-        console.log("beforeCreate", this.user);
+        // eslint-disable-next-line no-console
+        console.log("beforeCreate", this.form);
     },
     created () {
-        console.log("created", this.user);
-        this.form.user = this.user;
+        // eslint-disable-next-line no-console
+        console.log("created", this.form);
+        Object.assign(this.form, this.state);
     },
     beforeMount () {
-        console.log("beforeMount", this.user);
+        // eslint-disable-next-line no-console
+        console.log("beforeMount", this.form);
     },
     mounted () {
-        console.log("mounted", this.user);
+        // eslint-disable-next-line no-console
+        console.log("mounted", this.form);
     },
     beforeUpdate () {
-        console.log("beforeUpdate", this.user);
+        // eslint-disable-next-line no-console
+        console.log("beforeUpdate", this.form);
     },
     updated () {
-        console.log("updated", this.user);
+        // eslint-disable-next-line no-console
+        console.log("updated", this.form);
     },
     beforeDestroy () {
-        console.log("beforeDestroy", this.user);
+        // eslint-disable-next-line no-console
+        console.log("beforeDestroy", this.form);
     },
     destroyed () {
-        console.log("destroyed", this.user);
+        // eslint-disable-next-line no-console
+        console.log("destroyed", this.form);
     },
 };
 
